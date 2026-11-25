@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10180f">
+<meta name="description" content="Play Snake in your browser. Eat, grow, beat your high score.">
+<title>Snake by Tanshi | Arcade</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{color-scheme:dark;--bg:#10180f;--panel:#182318;--panel2:#203020;--line:#d5f4c21c;--text:#f2f7e9;--muted:#9baa91;--green:#b7f27a;--lime:#dcff91;--red:#ff806f;--gold:#f6d47c}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 8%,#8ccf4c24,transparent 34%),radial-gradient(ellipse at 88% 25%,#f6d47c12,transparent 30%),var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--text);padding:26px 16px 40px}
+button{font:inherit}.shell{width:min(1040px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.08em}.logo{width:39px;height:39px;border-radius:12px;background:var(--green);color:#13200e;display:grid;place-items:center;font-size:22px}.tag{color:var(--muted);font-size:12px}
+.hero{text-align:center;margin:30px 0 26px}.eyebrow{font:11px 'DM Mono',monospace;color:var(--green);letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(38px,6vw,66px);line-height:1;margin:11px 0 10px;letter-spacing:-.06em}.hero h1 span{color:var(--green)}.hero p{color:var(--muted);margin:0;font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}.panel{background:linear-gradient(145deg,#ffffff08,transparent 60%),var(--panel);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 65px #0005}.game{padding:20px}.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px}.metric{background:#0d160d;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center}.metric small{display:block;color:var(--muted);font:10px 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase}.metric strong{display:block;color:var(--green);font:25px 'DM Mono',monospace;margin-top:4px}.arena{position:relative;max-width:620px;margin:auto;border:1px solid #b7f27a50;border-radius:15px;overflow:hidden;background:#0c160d;box-shadow:inset 0 0 45px #83c94c0b}
+canvas{display:block;width:100%;height:auto;aspect-ratio:1/1;touch-action:none}.overlay{position:absolute;inset:0;display:grid;place-items:center;background:#071007b8;backdrop-filter:blur(5px);padding:20px;text-align:center}.overlay[hidden]{display:none}.overlay-card{max-width:330px}.overlay h2{font-size:27px;margin:0 0 8px}.overlay p{color:#b4c1a9;font-size:13px;line-height:1.55;margin:0 0 17px}
+.controls{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0 0}.btn{border:1px solid var(--line);border-radius:11px;background:#ffffff09;color:var(--text);padding:11px 15px;font-weight:700;font-size:13px;cursor:pointer;transition:.18s}.btn:hover{transform:translateY(-1px);background:#ffffff14}.primary{background:var(--green);color:#13200e;border-color:transparent}.primary:hover{background:var(--lime)}.quiet{margin-left:auto}
+.side{display:grid;gap:14px}.side-panel{padding:19px}.side h2{font-size:15px;margin:0 0 14px}.hint{color:var(--muted);font-size:12px;line-height:1.65}.key{display:inline-block;border:1px solid #ffffff2b;border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:var(--text);font:11px 'DM Mono',monospace;margin:2px}
+.dpad{display:grid;grid-template-columns:repeat(3,43px);grid-template-rows:repeat(2,39px);gap:5px;justify-content:center;margin:12px auto 2px}.dpad button{background:#ffffff0a;border:1px solid var(--line);border-radius:9px;color:var(--green);font-size:18px;cursor:pointer}.dpad button:active{background:#b7f27a33}.dpad .up{grid-column:2}.dpad .left{grid-column:1;grid-row:2}.dpad .down{grid-column:2;grid-row:2}.dpad .right{grid-column:3;grid-row:2}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-top:13px}.toggle-row input{accent-color:var(--green);width:17px;height:17px}
+.foot{text-align:center;color:#77846d;font-size:11px;margin-top:22px}
+@media(max-width:790px){.layout{grid-template-columns:1fr}.side{grid-template-columns:repeat(2,minmax(0,1fr))}.game{padding:14px}}
+@media(max-width:480px){body{padding:18px 11px 30px}.tag{display:none}.side{grid-template-columns:1fr}.game{padding:11px}.hud{gap:6px}.metric{padding:9px 5px}.metric strong{font-size:21px}.controls .btn{flex:1;padding:11px 8px}.quiet{margin-left:0}}
+button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+</style>
+</head>
+<body><main class="shell">
+<header class="top"><div class="brand"><div class="logo">蛇</div><span>ARCADE / 01</span></div><div class="tag">A classic. A fresh run. Your high score.</div></header>
+<section class="hero"><div class="eyebrow">Eat · Grow · Don't crash</div><h1>SNAKE <span>GAME</span></h1><p>A little nostalgia, right in your browser.</p></section>
+<div class="layout">
+<section class="panel game">
+<div class="hud"><div class="metric"><small>Score</small><strong id="score">0</strong></div><div class="metric"><small>Best</small><strong id="best">0</strong></div><div class="metric"><small>Speed</small><strong id="speed">1×</strong></div></div>
+<div class="arena"><canvas id="game" width="600" height="600" aria-label="Snake game board"></canvas>
+<div class="overlay" id="overlay"><div class="overlay-card"><h2 id="overlayTitle">Ready to slither?</h2><p id="overlayText">Use the arrow keys or WASD. On mobile, use the directional pad. Eat the glowing fruit, grow longer, and avoid the walls and your own tail.</p><button class="btn primary" id="startBtn">Start game</button></div></div></div>
+<div class="controls"><button class="btn primary" id="pauseBtn">Ⅱ &nbsp; Pause</button><button class="btn" id="restartBtn">↻ &nbsp; Restart</button><button class="btn quiet" id="soundBtn">♫ Sound: Off</button></div>
+</section>
+<aside class="side">
+<section class="panel side-panel"><h2>How to play</h2><div class="hint">Move with <span class="key">↑</span><span class="key">↓</span><span class="key">←</span><span class="key">→</span> or <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span>.<br>Eat fruit to gain 10 points and grow. Every few fruits, the snake speeds up. Don't hit a wall or yourself.</div><div class="dpad" aria-label="Touch controls"><button class="up" data-dir="up" aria-label="Up">↑</button><button class="left" data-dir="left" aria-label="Left">←</button><button class="down" data-dir="down" aria-label="Down">↓</button><button class="right" data-dir="right" aria-label="Right">→</button></div></section>
+<section class="panel side-panel"><h2>Game settings</h2><div class="hint">Choose a pace that suits you.</div><div class="toggle-row"><label for="difficulty">Difficulty</label><select id="difficulty" style="background:#10180f;color:#f2f7e9;border:1px solid #ffffff25;border-radius:8px;padding:7px"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="fast">Fast</option></select></div><div class="toggle-row"><label for="wrap">Wrap through walls</label><input id="wrap" type="checkbox"></div><div class="toggle-row"><label for="grid">Show grid</label><input id="grid" type="checkbox" checked></div><p class="hint" style="margin:13px 0 0">Your best score is saved in this browser on this device.</p></section>
+</aside></div><footer class="foot">Made by Tanshi · Play anywhere, no installation needed.</footer>
+</main>
+<script>
+(()=> {
+const canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),$=id=>document.getElementById(id),N=25,CELL=24,STORE='tanshi-snake-best-v1';
+let snake,dir,nextDir,food,score,best=loadBest(),running=false,over=false,paused=false,loop=null,tickMs=145,sound=false,audio=null;
+const palette={bg:'#0d180e',grid:'#1d301c',snake:'#b7f27a',head:'#e2ff9e',food:'#ff806f'};
+function loadBest(){try{return Number(localStorage.getItem(STORE))||0}catch(e){return 0}}
+function saveBest(){try{localStorage.setItem(STORE,String(best))}catch(e){}}
+function showOverlay(title,text,button){$('overlayTitle').textContent=title;$('overlayText').textContent=text;$('startBtn').textContent=button;$('overlay').hidden=false}
+function hideOverlay(){$('overlay').hidden=true}
+function updateHud(){$('score').textContent=score;$('best').textContent=best;$('speed').textContent=(145/tickMs).toFixed(1)+'×'}
+function randFood(){let p;do{p={x:Math.floor(Math.random()*N),y:Math.floor(Math.random()*N)}}while(snake.some(s=>s.x===p.x&&s.y===p.y));return p}
+function reset(){clearInterval(loop);loop=null;snake=[{x:12,y:12},{x:11,y:12},{x:10,y:12}];dir={x:1,y:0};nextDir={x:1,y:0};food=randFood();score=0;running=false;over=false;paused=false;const d=$('difficulty').value;tickMs=d==='easy'?185:d==='fast'?105:145;updateHud();draw();$('pauseBtn').textContent='Ⅱ  Pause';showOverlay('Ready to slither?','Use arrow keys or WASD. On mobile, use the directional pad. Eat fruit, grow longer, and avoid the walls and your own tail.','Start game')}
+function start(){if(over)reset();if(running)return;running=true;paused=false;hideOverlay();$('pauseBtn').textContent='Ⅱ  Pause';loop=setInterval(step,tickMs)}
+function pause(){if(!running)return;clearInterval(loop);loop=null;running=false;paused=true;$('pauseBtn').textContent='▶  Resume';showOverlay('Game paused','Take a breather. Your run is right where you left it.','Resume game')}
+function end(){clearInterval(loop);loop=null;running=false;over=true;if(score>best){best=score;saveBest()}updateHud();showOverlay('Game over','You scored '+score+'. '+(score>=best&&score>0?'New personal best!':'Best score: '+best+'.')+' Ready for another run?','Play again');beep(160,.18)}
+function beep(freq,duration){if(!sound)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=freq;o.connect(g);g.connect(audio.destination);g.gain.value=.035;o.start();g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.stop(audio.currentTime+duration)}catch(e){}}
+function setDirection(d){const map={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};const v=map[d];if(!v||v.x===-dir.x&&v.y===-dir.y)return;nextDir=v;if(!running&&!over&&!paused)start()}
+function step(){dir=nextDir;const h={x:snake[0].x+dir.x,y:snake[0].y+dir.y},wrap=$('wrap').checked;if(wrap){h.x=(h.x+N)%N;h.y=(h.y+N)%N}else if(h.x<0||h.y<0||h.x>=N||h.y>=N){end();return}
+const eating=h.x===food.x&&h.y===food.y;const body=eating?snake:snake.slice(0,-1);if(body.some(s=>s.x===h.x&&s.y===h.y)){end();return}
+snake.unshift(h);if(eating){score+=10;food=randFood();beep(620,.08);if(score>best){best=score;saveBest()}const d=$('difficulty').value;tickMs=Math.max(d==='easy'?115:d==='fast'?65:85,tickMs-3);clearInterval(loop);loop=setInterval(step,tickMs)}else snake.pop();updateHud();draw()}
+function draw(){ctx.fillStyle=palette.bg;ctx.fillRect(0,0,600,600);if($('grid').checked){ctx.strokeStyle=palette.grid;ctx.lineWidth=1;for(let i=0;i<=N;i++){ctx.beginPath();ctx.moveTo(i*CELL,0);ctx.lineTo(i*CELL,600);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i*CELL);ctx.lineTo(600,i*CELL);ctx.stroke()}}
+ctx.fillStyle=palette.food;ctx.shadowColor=palette.food;ctx.shadowBlur=18;ctx.beginPath();ctx.arc(food.x*CELL+12,food.y*CELL+12,8,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+snake.forEach((s,i)=>{const pad=i===0?2:3;ctx.fillStyle=i===0?palette.head:palette.snake;ctx.shadowColor=palette.snake;ctx.shadowBlur=i===0?13:5;roundRect(ctx,s.x*CELL+pad,s.y*CELL+pad,CELL-pad*2,CELL-pad*2, i===0?7:5);ctx.fill()});ctx.shadowBlur=0;
+const h=snake[0];ctx.fillStyle='#183014';const eye1={x:h.x*CELL+9,y:h.y*CELL+9},eye2={x:h.x*CELL+16,y:h.y*CELL+9};if(dir.y===1){eye1.y+=5;eye2.y+=5}else if(dir.x!==0){eye1.y+=3;eye2.y+=3;eye1.x+=dir.x*3;eye2.x+=dir.x*3}else{eye1.y+=dir.y*3;eye2.y+=dir.y*3}ctx.beginPath();ctx.arc(eye1.x,eye1.y,1.8,0,7);ctx.arc(eye2.x,eye2.y,1.8,0,7);ctx.fill()}
+function roundRect(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r)}
+document.addEventListener('keydown',e=>{const k=e.key.toLowerCase(),map={arrowup:'up',w:'up',arrowdown:'down',s:'down',arrowleft:'left',a:'left',arrowright:'right',d:'right'};if(map[k]){e.preventDefault();setDirection(map[k])}if(k===' '){e.preventDefault();running?pause():start()}if(k==='enter'&&!running)start()});
+document.querySelectorAll('[data-dir]').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();setDirection(b.dataset.dir)})});
+$('startBtn').addEventListener('click',()=>{if(paused){paused=false;start()}else start()});
+$('pauseBtn').addEventListener('click',()=>running?pause():start());
+$('restartBtn').addEventListener('click',reset);
+$('soundBtn').addEventListener('click',()=>{sound=!sound;$('soundBtn').textContent=sound?'♫ Sound: On':'♫ Sound: Off';if(sound)beep(520,.08)});
+$('difficulty').addEventListener('change',reset);
+$('wrap').addEventListener('change',draw);$('grid').addEventListener('change',draw);
+updateHud();reset();
+})();
+</script></body></html>

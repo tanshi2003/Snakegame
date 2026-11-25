@@ -1,33 +1,60 @@
-# Snake by Rohan [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
-This Snake Game Is Made Using Python 3.6.5 & Pygame Module.
-Hope You Will Like The Game.. and also u can use the code to make your own version of game.
+# Snake Game
 
-> ### To play the game, simply double click on the **Snake.exe**.
+A classic Snake game built with Python and Pygame, now with a browser-playable edition so people can play without installing Python or PyCharm.
 
+## Play online
 
-Installing The Pygame Module:
-<br>
-* Open Terminal/CMD
-* Type ```pip install pygame/ pip3 install pygame```
+**Browser version:** https://tanshi2003.github.io/Snakegame/
 
-OR
+Open the link on desktop or mobile. No installation is required.
 
-* Open Terminal or CMD, then Type ```pip install -r <path to the game>```
+## Browser game controls
 
-**Example:** ```pip install -r c://Users/Downloads/SnakeByRohan/requirements.txt```
+- **Move:** Arrow keys or W, A, S, D.
+- **Mobile:** Use the on-screen directional pad.
+- **Pause / resume:** Space bar or the Pause button.
+- **Restart:** Restart button.
+- **Goal:** Eat the glowing fruit, gain 10 points per fruit, and avoid hitting the walls or your own tail.
 
----
+### Browser game options
 
-Dont Delete Any Files.. IT MAY CRASH THE GAME!
+- Easy, Normal, and Fast starting speeds.
+- Optional wall wrapping.
+- Toggle the grid and simple sound effects.
+- Personal best saved in your browser using local storage.
 
-```Start The Game Using Snake.exe File!```
+Scores are stored locally in the browser and are not shared across devices.
 
+## Run the original Python desktop version
 
-> **Cheats**
-<br>
-Press <b>Q</b> to add extra 10 points. :smile:
+The original Pygame edition is still included in this repository.
 
-* Follow Me On Instagram at [RohanDasRD](https://www.instagram.com/RohanDasRD)
-* Thanks to [Harsh Trivedi](https://harsh98trivedi.github.io) for creating this README
+1. Install Python 3.
+2. Clone or download this repository.
+3. Open a terminal in the project folder.
+4. Install the dependency:
 
-### ThankYou!
+   ```bash
+   python -m pip install -r requirements.txt
+   ```
+
+5. Run:
+
+   ```bash
+   python Snake.py
+   ```
+
+Keep the `Screen/` and `Music/` folders alongside `Snake.py`. The desktop version loads its images and music from those folders.
+
+### Windows executable
+
+The packaged Windows executable is retained in the repository at `dist/Snake.exe`. Download it from the repository if you prefer the desktop build. Only run executables you trust.
+
+## Technologies
+
+- Python + Pygame (desktop edition)
+- HTML, CSS, and JavaScript (browser edition)
+
+## GitHub Pages
+
+The browser edition is published from the `web/` folder using GitHub Actions. Every push to `main` that changes the web game or deployment workflow triggers a deployment.
