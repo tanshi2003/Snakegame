@@ -1,12 +1,14 @@
 # Snake Game
 
-A classic Snake game built with Python and Pygame, now with a browser-playable edition so people can play without installing Python or PyCharm.
+A classic Snake game built with Python and Pygame, with a browser-playable edition so anyone can play from a link without installing Python or PyCharm.
 
 ## Play online
 
-**Browser version:** https://tanshi2003.github.io/Snakegame/
+**Browser game:** https://tanshi2003.github.io/Snakegame/
 
 Open the link on desktop or mobile. No installation is required.
+
+> **First-time setup:** In the GitHub repository, open **Settings → Pages**. Under **Build and deployment**, set **Source** to **GitHub Actions** and save. The workflow will then publish the browser game automatically on every push to `main`.
 
 ## Browser game controls
 
@@ -48,13 +50,13 @@ Keep the `Screen/` and `Music/` folders alongside `Snake.py`. The desktop versio
 
 ### Windows executable
 
-The packaged Windows executable is retained in the repository at `dist/Snake.exe`. Download it from the repository if you prefer the desktop build. Only run executables you trust.
+The packaged Windows executable is retained at `dist/Snake.exe`. Download it from the repository if you prefer the desktop build. Only run executables you trust.
 
 ## Technologies
 
 - Python + Pygame (desktop edition)
 - HTML, CSS, and JavaScript (browser edition)
 
-## GitHub Pages
+## GitHub Pages deployment
 
-The browser edition is published from the `web/` folder using GitHub Actions. Every push to `main` that changes the web game or deployment workflow triggers a deployment.
+The browser edition is published from the `web/` folder using `.github/workflows/deploy.yml`. After selecting **GitHub Actions** as the Pages source once, future pushes to `main` deploy automatically.
