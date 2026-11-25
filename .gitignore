@@ -1,0 +1,13 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# PyInstaller build output (keep the distributable in dist/)
+build/
+
+# Local score data
+highscore.txt
+
+# IDE/editor files
+.idea/
+.vscode/
