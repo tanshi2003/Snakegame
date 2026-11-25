@@ -22,7 +22,8 @@ Open the link on desktop or mobile. No installation is required.
 
 - Easy, Normal, and Fast starting speeds.
 - Optional wall wrapping.
-- Toggle the grid and simple sound effects.
+- Toggle the grid and sound effects for eating food and crashing into a wall or yourself.
+- Manually adjust the snake speed with a 10-level slider. Choosing manual speed disables automatic speed increases while eating.
 - Personal best saved in your browser using local storage.
 
 Scores are stored locally in the browser and are not shared across devices.
