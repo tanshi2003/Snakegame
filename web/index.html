@@ -5,12 +5,12 @@
 <meta name="description" content="Play Snake in your browser. Eat, grow, beat your high score.">
 <title>Snake by Tanshi | Arcade</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 :root{color-scheme:dark;--bg:#10180f;--panel:#182318;--panel2:#203020;--line:#d5f4c21c;--text:#f2f7e9;--muted:#9baa91;--green:#b7f27a;--lime:#dcff91;--red:#ff806f;--gold:#f6d47c}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 8%,#8ccf4c24,transparent 34%),radial-gradient(ellipse at 88% 25%,#f6d47c12,transparent 30%),var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--text);padding:26px 16px 40px}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);font-family:Arial,sans-serif;color:var(--text);padding:26px 16px 40px}
 button{font:inherit}.shell{width:min(1040px,100%);margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.08em}.logo{width:39px;height:39px;border-radius:12px;background:var(--green);color:#13200e;display:grid;place-items:center;font-size:22px}.tag{color:var(--muted);font-size:12px}
-.hero{text-align:center;margin:30px 0 26px}.eyebrow{font:11px 'DM Mono',monospace;color:var(--green);letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(38px,6vw,66px);line-height:1;margin:11px 0 10px;letter-spacing:-.06em}.hero h1 span{color:var(--green)}.hero p{color:var(--muted);margin:0;font-size:14px}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}.panel{background:linear-gradient(145deg,#ffffff08,transparent 60%),var(--panel);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 65px #0005}.game{padding:20px}.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px}.metric{background:#0d160d;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center}.metric small{display:block;color:var(--muted);font:10px 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase}.metric strong{display:block;color:var(--green);font:25px 'DM Mono',monospace;margin-top:4px}.arena{position:relative;max-width:620px;margin:auto;border:1px solid #b7f27a50;border-radius:15px;overflow:hidden;background:#0c160d;box-shadow:inset 0 0 45px #83c94c0b}
+.hero{text-align:center;margin:30px 0 26px}.eyebrow{font:11px monospace;color:var(--green);letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:clamp(38px,6vw,66px);line-height:1;margin:11px 0 10px;letter-spacing:-.06em}.hero h1 span{color:var(--green)}.hero p{color:var(--muted);margin:0;font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}.panel{background:linear-gradient(145deg,#ffffff08,transparent 60%),var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 30px #0004}.game{padding:20px}.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px}.metric{background:#0d160d;border:1px solid var(--line);border-radius:13px;padding:11px;text-align:center}.metric small{display:block;color:var(--muted);font:10px monospace;letter-spacing:.1em;text-transform:uppercase}.metric strong{display:block;color:var(--green);font:25px monospace;margin-top:4px}.arena{position:relative;max-width:620px;margin:auto;border:1px solid #b7f27a50;border-radius:15px;overflow:hidden;background:#0c160d;box-shadow:inset 0 0 45px #83c94c0b}
 canvas{display:block;width:100%;height:auto;aspect-ratio:1/1;touch-action:none}.overlay{position:absolute;inset:0;display:grid;place-items:center;background:#071007b8;backdrop-filter:blur(5px);padding:20px;text-align:center}.overlay[hidden]{display:none}.overlay-card{max-width:330px}.overlay h2{font-size:27px;margin:0 0 8px}.overlay p{color:#b4c1a9;font-size:13px;line-height:1.55;margin:0 0 17px}
 .controls{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0 0}.btn{border:1px solid var(--line);border-radius:11px;background:#ffffff09;color:var(--text);padding:11px 15px;font-weight:700;font-size:13px;cursor:pointer;transition:.18s}.btn:hover{transform:translateY(-1px);background:#ffffff14}.primary{background:var(--green);color:#13200e;border-color:transparent}.primary:hover{background:var(--lime)}.quiet{margin-left:auto}
 .side{display:grid;gap:14px}.side-panel{padding:19px}.side h2{font-size:15px;margin:0 0 14px}.hint{color:var(--muted);font-size:12px;line-height:1.65}.key{display:inline-block;border:1px solid #ffffff2b;border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:var(--text);font:11px 'DM Mono',monospace;margin:2px}
@@ -18,7 +18,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:1/1;touch-action:none}.
 .toggle-row{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-top:13px}.toggle-row input{accent-color:var(--green);width:17px;height:17px}
 .speed-control{display:grid;gap:8px;margin-top:14px}
 .speed-control label{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}
-.speed-control label strong{color:var(--green);font:12px 'DM Mono',monospace}
+.speed-control label strong{color:var(--green);font:12px monospace}
 .speed-control input[type=range]{width:100%;accent-color:var(--green);cursor:pointer}
 .speed-ends{display:flex;justify-content:space-between;color:#82927a;font:10px 'DM Mono',monospace}
 .foot{text-align:center;color:#77846d;font-size:11px;margin-top:22px}
@@ -28,8 +28,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-o
 </style>
 </head>
 <body><main class="shell">
-<header class="top"><div class="brand"><div class="logo">蛇</div><span>ARCADE / 01</span></div><div class="tag">A classic. A fresh run. Your high score.</div></header>
-<section class="hero"><div class="eyebrow">Eat · Grow · Don't crash</div><h1>SNAKE <span>GAME</span></h1><p>A little nostalgia, right in your browser.</p></section>
+<header class="top"><div class="brand"><div class="logo">蛇</div><span>ARCADE / 01</span></div><div class="tag"></div></header>
+<section class="hero"><div class="eyebrow">Eat · Grow · Don't crash</div><h1>SNAKE <span>GAME</span></h1><p>Eat, grow, and try to beat your best score.</p></section>
 <div class="layout">
 <section class="panel game">
 <div class="hud"><div class="metric"><small>Score</small><strong id="score">0</strong></div><div class="metric"><small>Best</small><strong id="best">0</strong></div><div class="metric"><small>Speed</small><strong id="speed">1×</strong></div></div>
